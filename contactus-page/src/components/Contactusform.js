@@ -1,69 +1,60 @@
-import {useState, useEffect} from "react";
-import axios from "axios"
 
-const initialFormData = {
-    name: "",
-    email: "",
-    birthdate: "",
-    consent: ""
-}
-const initialFormErrors = {
-    name: "",
-    email: "",
-    birthdate: "",
-    consent: ""
-}
 
-function Contactusform() {
-    const [formData, setFormData] = useState(initialFormData)
-    const [formErrors, setFormErrors] = useState(initialFormErrors)
-    const [disabled, setDisabled] = useState(true)
-    const postData = (formData) => {
+function ContactUsForm(props) {
+    const {selections, submit, changeHandler, disabled, errors, clear}= props
 
-    }
     const onChange = (evt) => {
         const { name, value, type, checked } = evt.target;
         const valueToUse = type === "checkbox" ? checked : value;
-        change(name, valueToUse);
+        changeHandler(name, valueToUse);
+    }
+
+    
+
+    
+    const onSubmit = (evt) => {
+        evt.preventDefault();
+        submit();
+      };
     return (
         
-            <form>
-                <label> Name
+            <form className="contactUsForm" onSubmit={onSubmit}>
+                <label> Name: &nbsp;
                     <input 
                     type="text" 
                     name="name"
                     onChange={onChange}
-                    value= {formData.name} />
+                    value= {selections.name} />
                 </label>
-                <label>Email
+                <label>Email: &nbsp;
                     <input 
                     type="email"
                     name="email"
                     onChange={onChange}
-                    value={formData.email}
+                    value={selections.email}
                     />
                 </label>
-                <label>Birthdate
+                <label>Birthdate: &nbsp;
                     <input type="date"
-                    name="email"
+                    name="birthdate"
                     onChange={onChange}
-                    value={formData.email}/>
+                    value={selections.birthdate}/>
                 </label>
                 <label>
-                    <input type="checkbox" 
+                    <input 
+                    type="checkbox" 
                     id="emailConsent" 
                     name="consent"
-                    checked = {formData.consent}
+                    checked = {selections.consent}
                     onChange={onChange}/>
-                    I agree to be contacted by email
+                    &nbsp; I agree to be contacted by email
                 </label>
-                <button type="button">Clear</button>
-                <button type="button">Submit</button>
+                <button type="button" className="clear" onClick={clear}>Clear</button>
+                <button type="button" disabled={disabled} className="submit">Submit</button>
             </form>
 
 
     )
 
-
 }
-export default Contactusform
+export default ContactUsForm;
