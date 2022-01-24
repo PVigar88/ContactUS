@@ -49,8 +49,14 @@ function ContactUsForm(props) {
                     onChange={onChange}/>
                     &nbsp; I agree to be contacted by email
                 </label>
+                <div className="errors">
+                    <div>{errors.name}</div>
+                    <div>{errors.email}</div>
+                    <div>{errors.birthdate}</div>
+                    <div>{errors.consent}</div>
+                </div>
+                <button type="button" disabled={disabled} className="submit" onClick={submit}>Submit</button>
                 <button type="button" className="clear" onClick={clear}>Clear</button>
-                <button type="button" disabled={disabled} className="submit">Submit</button>
             </form>
 
 

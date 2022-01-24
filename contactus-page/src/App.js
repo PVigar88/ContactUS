@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from "react";
-import axios from "axios"
+import axios from "axios";
+import * as yup from "yup";
+import schema from "./validation/formSchema";
 import './App.css';
 import ContactUsForm from './components/Contactusform';
 const initialFormData = {
@@ -15,17 +17,16 @@ const initialFormErrors = {
   consent: ""
 }
 function App() {
-  const [selections, setSelections] = useState([])
   const [formData, setFormData] = useState(initialFormData)
   const [formErrors, setFormErrors] = useState(initialFormErrors)
   const [disabled, setDisabled] = useState(true)
   
   const postSubmission = (newSubmission) => {
     axios
-      .post("https://my-json-server.typicode.com/JustUtahCoders/interview-users-api/usersa", newSubmission)
+      .post("https://my-json-server.typicode.com/JustUtahCoders/interview-users-api/users", newSubmission)
       .then((res) => {
-        console.log(res.data);
-        setSelections(res.data);
+        window.alert("Your submission has been received")
+        
 
         setFormData(initialFormData);
       })
@@ -34,6 +35,12 @@ function App() {
         console.log("There was an error submitting the data, please try again later");
       });
   };
+
+  useEffect(() => {
+    schema.isValid(formData).then((valid) => {
+      setDisabled(!valid);
+    });
+  }, [formData]);
 
   const changeHandler = (name, value) =>{
     yup
@@ -51,7 +58,7 @@ function App() {
         [name]: err.errors[0],
       });
     });
-      setFormData({... formData, [name]: value})
+      setFormData({...formData, [name]: value})
   }
   const clearForm =() =>{
     setFormData(initialFormData)
@@ -62,6 +69,7 @@ function App() {
       email: formData.email,
       birthdate: formData.birthdate,
       consent: formData.consent}
+      postSubmission(newSubmission)
   }
   return (
     <div className="App">
