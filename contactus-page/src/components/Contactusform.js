@@ -24,7 +24,8 @@ function ContactUsForm(props) {
                     type="text" 
                     name="name"
                     onChange={onChange}
-                    value= {selections.name} />
+                    value= {selections.name} 
+                    required/>
                 </label>
                 <label>Email: &nbsp;
                     <input 
@@ -32,13 +33,15 @@ function ContactUsForm(props) {
                     name="email"
                     onChange={onChange}
                     value={selections.email}
+                    required
                     />
                 </label>
                 <label>Birthdate: &nbsp;
                     <input type="date"
                     name="birthdate"
                     onChange={onChange}
-                    value={selections.birthdate}/>
+                    value={selections.birthdate}
+                    />
                 </label>
                 <label>
                     <input 

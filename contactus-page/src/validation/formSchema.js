@@ -2,8 +2,7 @@ import * as yup from "yup";
 
 export default yup.object().shape({
   name: yup.string().required("Name is required"),
-  email: yup.string().required("Last Name is required"),
-  birthdate: yup.date(),
+  email: yup.string().required("Email is required"),
   consent: yup.boolean(),
   
 });
